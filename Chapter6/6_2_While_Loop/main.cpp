@@ -22,5 +22,17 @@ int main(){
     }
     std::cout << "Multiplication of odd from 1-10: " << mul << std::endl;
 
+    // Factorial calc
+    int a {};
+    std::cout << "Enter a number to calc factorial: " ;
+    std::cin >> a;
+
+    int fact {1};
+    while (a>0){
+        fact = fact * a;
+        a--;
+    }
+    std::cout << "Factorial is: " << fact << std::endl;
+
     return 0;
 }
