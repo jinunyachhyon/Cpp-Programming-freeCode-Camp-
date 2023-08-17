@@ -15,8 +15,13 @@ int main(){
 
     int fact = 1;
     do{
-        fact = fact * a;
-        a--;
+        if (a==0){
+            fact = 1; // factorial of 0 is 1 
+        }
+        else{
+            fact = fact * a;
+            a--;
+        }
     } while (a>0);
     std::cout << "Factorial is: " << fact << std::endl;
 
