@@ -1,9 +1,9 @@
 #include <iostream>
 
 /* Integer Initialization
-- Braced Initialization
-- Functional Initialization
-- Assignment Initialization
+- Braced Initialization {}
+- Functional Initialization ()
+- Assignment Initialization = 
 */
 
 int main(){
