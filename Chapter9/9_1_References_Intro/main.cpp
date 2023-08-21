@@ -2,7 +2,7 @@
 
 int main(){
 
-    int int_data{33};
+    int int_data{33}; 
     double double_data{55};
 
     //References -- alias variable that reference an original variable 

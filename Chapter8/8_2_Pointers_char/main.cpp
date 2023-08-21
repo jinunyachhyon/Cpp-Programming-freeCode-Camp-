@@ -8,7 +8,7 @@ int main(){
 
     char char_var {'A'};
     ptr_char = &char_var;
-    std::cout << "Value in ptr_chr: " << *ptr_char << std::endl;
+    std::cout << "Value in ptr_chr: " << *ptr_char << std::endl; 
     std::cout << "Address: " << ptr_char << std::endl;
 
     char char_var1 {'B'};

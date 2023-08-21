@@ -8,7 +8,7 @@ int main(){
 	std::cout << std::endl;
 	std::cout << "Non const reference : " << std::endl;
 	int age {27};
-	int& ref_age{age};
+	int& ref_age{age}; 
     // const int& ref_age{age}; // cannot change constant ref_age to modify the original
 	
 	std::cout << "age : " << age << std::endl;
