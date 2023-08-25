@@ -17,9 +17,12 @@ int main(){
     std::string e = "Hello";
     std::string f = "Everyone";
 
-    maximum(a,b); // Automatically deduce int type
-    maximum(c,d); // Automatically deduce double type
-    maximum(e,f); // Automatically deduce string type
+    auto r = maximum(a,b); // Automatically deduce int type
+    std::cout << r << std::endl;
+    auto rr = maximum(c,d); // Automatically deduce double type
+    std::cout << rr << std::endl;
+    auto rrr = maximum(e,f); // Automatically deduce string type
+    std::cout << rrr << std::endl; // output: rrr = "Hello" because lexographically, H comes after E
 
     // Explicit Arguments
     auto r1 = maximum <double> (a,c); // Explicitly deduce double type
