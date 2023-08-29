@@ -1,0 +1,5 @@
+Compile:
+g++ myapp.cpp -o myapp.out
+
+Run:
+./myapp.out

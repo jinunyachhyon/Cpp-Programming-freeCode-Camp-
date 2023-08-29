@@ -20,6 +20,7 @@ int main(){
             std::cout << "Value of c in the lambda function: " << c << std::endl;
             };
 
+
     capture_value(); // Output: 0.666
 
     c = c + 3.333; // Change value of c
