@@ -2,6 +2,10 @@
 
 class Fibonacci{
     public:
+    int a {0};
+    int b {1};
+    int c {};
+    
     int fibo(int n){
         if (n==1){
             return a;
@@ -18,11 +22,6 @@ class Fibonacci{
             return c;
         }
     }
-
-    public:
-    int a {0};
-    int b {1};
-    int c {};
 };
 
 int main(){
