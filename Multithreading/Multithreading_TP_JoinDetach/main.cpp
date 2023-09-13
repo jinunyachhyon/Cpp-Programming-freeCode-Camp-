@@ -35,10 +35,14 @@ int main () {
    int rc;
    int i;
    pthread_t threads[NUM_THREADS];
-   pthread_attr_t attr;
-   void *status;
+   pthread_attr_t attr; // thread attribute object that will be used to set thread attributes
+   void *status; // store the exit status of the threads when they join
 
    // Initialize and set thread joinable
+   /*
+   Initialize the thread attribute object attr and set it to make the threads joinable. 
+   This means that you can later wait for these threads to finish using pthread_join.
+   */
    pthread_attr_init(&attr);
    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
@@ -52,9 +56,13 @@ int main () {
    }
 
    // free attribute and wait for the other threads
+   /*
+   After creating all threads, you destroy the thread attribute object attr since you no longer need it.
+   */
    pthread_attr_destroy(&attr);
+
    for( i = 0; i < NUM_THREADS; i++ ) {
-      rc = pthread_join(threads[i], &status);
+      rc = pthread_join(threads[i], &status); // blocks the main thread until the specified thread (threads[i]) completes
       if (rc) {
          cout << "Error:unable to join," << rc << endl;
          exit(-1);
