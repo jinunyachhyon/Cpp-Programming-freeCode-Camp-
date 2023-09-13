@@ -10,7 +10,12 @@ int main()
 	vector<int> v;
 
 	// fill the vector with 10 five times
-	v.assign(5, 10);
+	v.push_back(10);
+	v.push_back(20);
+	v.push_back(30);
+	v.push_back(40);
+	v.push_back(50);
+	// v.assign(5, 10);
 
 	cout << "The vector elements are: ";
 	for (int i = 0; i < v.size(); i++)
@@ -18,6 +23,11 @@ int main()
 
 	// inserts 15 to the last position
 	v.push_back(15);
+	cout << endl;
+	cout << "The vector elements after adding 15 are: ";
+	for (int i = 0; i < v.size(); i++)
+		cout << v[i] << " ";
+
 	int n = v.size();
 	cout << "\nThe last element is: " << v[n - 1];
 
@@ -31,6 +41,7 @@ int main()
 
 	// inserts 5 at the beginning
 	v.insert(v.begin(), 5);
+	cout <<"\nTHe size after insert: "<< v.size() << endl;
 
 	cout << "\nThe first element after insesrtion is: " << v[0];
     cout << "\nVector element after insertion: ";
@@ -47,6 +58,7 @@ int main()
 
 	// inserts at the beginning 
 	v.emplace(v.begin(), 5);
+	cout << "\nSize after emplace: " << v.size() << endl;
 	cout << "\nThe first element after emplace insertion is: " << v[0];
     cout << "\nVector element after emplace insertion is: ";
     for (int i = 0; i < v.size(); i++)

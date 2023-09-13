@@ -8,13 +8,13 @@ int main()
 	vector<int> g1;
 
 	for (int i = 1; i <= 10; i++)
-		g1.push_back(i * 10);
+		g1.push_back(i * 10); // [10,20..100]
 
-	cout << "\nReference operator [g] : g1[2] = " << g1[2];
+	cout << "\nReference operator [g] : g1[2] = " << g1[2]; //30
 
-	cout << "\nat : g1.at(4) = " << g1.at(4);
+	cout << "\nat : g1.at(4) = " << g1.at(4); //50
 
-	cout << "\nfront() : g1.front() = " << g1.front();
+	cout << "\nfront() : g1.front() = " << g1.front(); 
 
 	cout << "\nback() : g1.back() = " << g1.back();
 
