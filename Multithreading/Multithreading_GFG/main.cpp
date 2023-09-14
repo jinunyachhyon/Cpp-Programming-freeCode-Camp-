@@ -39,11 +39,13 @@ cout << "Threads 1 and 2 and 3 "
 
 // This thread is launched by using
 // function pointer as callable
-thread th1(foo, 3);
+thread th1(foo, 3); // thread th1 starts running
+// th1.join(); // waits for thread th1 to complete execution and then only move forward
 
 // This thread is launched by using
 // function object as callable
-thread th2(thread_obj(), 3);
+thread th2(thread_obj(), 3); // thread th2 starts running
+// th2.join(); // waits for thread th2 to complete execution and then only move forward
 
 // Define a Lambda Expression
 auto f = [](int x)
@@ -55,7 +57,9 @@ auto f = [](int x)
 
 // This thread is launched by using
 // lambda expression as callable
-thread th3(f, 3);
+thread th3(f, 3); // thread th3 starts running
+// th3.join(); // waits for thread th3 to complete execution and then only move forward
+
 
 // Wait for the threads to finish
 // Wait for thread t1 to finish
