@@ -10,12 +10,7 @@ int main()
 	vector<int> v;
 
 	// fill the vector with 10 five times
-	v.push_back(10);
-	v.push_back(20);
-	v.push_back(30);
-	v.push_back(40);
-	v.push_back(50);
-	// v.assign(5, 10);
+	v.assign(5, 10);
 
 	cout << "The vector elements are: ";
 	for (int i = 0; i < v.size(); i++)
