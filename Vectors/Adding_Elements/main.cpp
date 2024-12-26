@@ -1,82 +1,83 @@
-// push_back, insert, and emplace are three methods for adding elements to a vector.
-
-/*
-1. push_back : Add an element at the end of the vector. 
-               You provide the element directly, and the vector will make a copy of it.
-
-2. insert : Insert elements at a specified position in the vector. 
-            You provide an iterator (position) and the element to insert. The element is copied into the vector.
-
-3. emplace : Construct elements in place directly within the vector, without creating a temporary copy.
-*/
-
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <vector>
+#include <array>
 
-struct Point {
-    int x, y;
+struct Calibration {
+    std::array<std::array<double, 4>, 3> P2; // Projection matrix P2
+    std::array<std::array<double, 4>, 3> P3; // Projection matrix P3
+    std::array<std::array<double, 3>, 3> R0; // Rotation matrix R0
+    std::array<std::array<double, 4>, 3> Tr_velo_to_cam; // Transformation matrix Tr_velo_to_cam
+    double c_u, c_v, f_u, f_v, b_x, b_y; // Intrinsic parameters
 
-    // Constructor for the 'Point' struct
-    /*
-    Constructor takes two integer parameters, x and y, and 
-    initializes the x and y fields of the Point object with the values passed as arguments.
-    */ 
-    Point(int x, int y) : x(x), y(y) {}
+    Calibration(const std::string& filepath) {
+        readCalibrationFile(filepath);
+    }
+
+    void readCalibrationFile(const std::string& filepath) {
+        std::ifstream file(filepath);
+        if (!file.is_open()) {
+            std::cerr << "Failed to open calibration file: " << filepath << std::endl;
+            return;
+        }
+
+        std::string line;
+        while (std::getline(file, line)) {
+            std::istringstream iss(line);
+            std::string key;
+            iss >> key;
+
+            if (key == "P2:") {
+                for (int i = 0; i < 3; ++i) {
+                    for (int j = 0; j < 4; ++j) {
+                        iss >> P2[i][j];
+                    }
+                }
+            } else if (key == "P3:") {
+                for (int i = 0; i < 3; ++i) {
+                    for (int j = 0; j < 4; ++j) {
+                        iss >> P3[i][j];
+                    }
+                }
+            } else if (key == "R0_rect:") {
+                for (int i = 0; i < 3; ++i) {
+                    for (int j = 0; j < 3; ++j) {
+                        iss >> R0[i][j];
+                    }
+                }
+            } else if (key == "Tr_velo_to_cam:") {
+                for (int i = 0; i < 3; ++i) {
+                    for (int j = 0; j < 4; ++j) {
+                        iss >> Tr_velo_to_cam[i][j];
+                    }
+                }
+            }
+        }
+
+        // Calculate intrinsic parameters from P2
+        c_u = P2[0][2];
+        c_v = P2[1][2];
+        f_u = P2[0][0];
+        f_v = P2[1][1];
+        b_x = P2[0][3] / (-f_u);
+        b_y = P2[1][3] / (-f_v);
+
+        file.close();
+    }
 };
 
-
 int main() {
-    std::vector<int> myVector;
+    Calibration calib("calib.txt");
 
-    // Using push_back to add elements
-    myVector.push_back(1);
-    myVector.push_back(2);
-    myVector.push_back(3);
-    
-    std::cout << "Push backed elements: ";
-    for (int num : myVector) {
-        std::cout << num << " ";
-    }
-    std::cout << std::endl;
-
-
-    std::vector<int> myVector1 = {1, 2, 3};
-    
-    // Using insert to add elements at a specific position
-    std::vector<int>::iterator it = myVector1.begin() + 1;
-    myVector1.insert(it, 4);
-    
-    std::cout << "Inserted elements: ";
-    for (int num : myVector1) {
-        std::cout << num << " ";
-    }
-    std::cout << std::endl;
-
-
-    std::vector<int> myVector2;
-    
-    // Using emplace to add elements in place
-    myVector2.emplace_back(1);
-    myVector2.emplace_back(3);
-
-    std::cout << "Emplace elements: ";
-    for (int num : myVector2) {
-        std::cout << num << " ";
-    }
-    std::cout << std::endl;
-    
-
-    std::vector<Point> myVector3;
-    
-    // Using emplace to add elements in place
-    myVector3.emplace_back(1, 2);
-    myVector3.emplace_back(3, 4);
-    
-    std::cout << "Emplace using struct: ";
-    for (const Point& p : myVector3) {
-        std::cout << "(" << p.x << ", " << p.y << ") ";
-    }
-    std::cout << std::endl;
+    // Access calibration data
+    std::cout << "c_u: " << calib.c_u << std::endl;
+    std::cout << "c_v: " << calib.c_v << std::endl;
+    std::cout << "f_u: " << calib.f_u << std::endl;
+    std::cout << "f_v: " << calib.f_v << std::endl;
+    std::cout << "b_x: " << calib.b_x << std::endl;
+    std::cout << "b_y: " << calib.b_y << std::endl;
 
     return 0;
 }
